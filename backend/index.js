@@ -34,14 +34,15 @@ app.post('/patients', (req, res) => {
     } = req.body || {};
     if (!firstName || !lastName) {
         res.status(400).send("Error: Missing required fields");
+    } else {
+        const id = uuidv4();
+        database.patients[id] = {
+            id,
+            firstName,
+            lastName,
+        }
+        res.json(database.patients[id])
     }
-    const id = uuidv4();
-    database.patients[id] = {
-        id,
-        firstName,
-        lastName,
-    }
-    res.json(database.patients[id])
 });
 
 app.listen(port, () => {
