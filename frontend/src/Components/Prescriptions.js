@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {
+  Heading,
   Table,
   Thead,
   Tbody,
@@ -8,6 +9,7 @@ import {
   Td,
   TableContainer,
   Select,
+  Button,
 } from '@chakra-ui/react'
 import usePrescriptions from '../hooks/use-prescriptions'
 
@@ -15,37 +17,38 @@ export default function Prescriptions() {
   let { prescriptions, mutate } = usePrescriptions();
   if (!prescriptions) { return null }
 
-  function updateStatus(e, id) {
-    console.log(e.target.value)
-    axios.patch(`/prescriptions/${id}`, {
-      status: e.target.value
-    }).then(() => {
-      mutate()
-    });
+  function updateStatus(id, status) {
+    axios.patch(`/prescriptions/${id}`, { status }).then(() => mutate())
   }
 
   return (
     <div>
+      <Heading size="md" mb={5} textAlign="center">Prescriptions</Heading>
       <TableContainer>
         <Table>
           <Thead>
             <Tr>
-              <Th>Name</Th>
+              <Th>Patient</Th>
+              <Th>Medication</Th>
               <Th>Dosage</Th>
               <Td>Status</Td>
+              <Td>Actions</Td>
             </Tr>
           </Thead>
           <Tbody>
             {prescriptions.map(prescription => (
               <Tr key={prescription.id}>
+                <Td>{prescription.patient.firstName} {prescription.patient.lastName}</Td>
                 <Td>{prescription.name}</Td>
                 <Td>{prescription.dosage}</Td>
+                <Td>{prescription.status}</Td>
                 <Td>
-                <Select onChange={e => updateStatus(e, prescription.id)} defaultValue={prescription.status}>
-                  <option value='Ordered'>Ordered</option>
-                  <option value='Filled'>Filled</option>
-                  <option value='Received'>Received</option>
-                </Select>
+                    {prescription.status === "Ordered" &&
+                      <Button onClick={() => updateStatus(prescription.id, "Filled")}>Mark filled</Button>
+                    }
+                    {prescription.status === "Filled" &&
+                      <Button onClick={() => updateStatus(prescription.id, "Received")}>Mark received</Button>}
+
                 </Td>
               </Tr>
             ))}

@@ -37,7 +37,7 @@ export default function CreatePrescription({ mutate, patientId }) {
 
   return (
     <>
-      <Button onClick={onOpen}>+ Add</Button>
+      <Button onClick={onOpen}>+ Add Prescription</Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -54,7 +54,7 @@ export default function CreatePrescription({ mutate, patientId }) {
                 <FormLabel>Dosage</FormLabel>
                 <Input name= "dosage" />
               </FormControl>
-              <Button mt={3} colorScheme='blue' type="submit">
+              <Button mt={3} mb={3} type="submit">
                 Create
               </Button>
             </form>

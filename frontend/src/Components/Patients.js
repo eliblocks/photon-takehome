@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Link as RouterLink } from "react-router-dom";
 import {
+  Heading,
   Table,
   Thead,
   Tbody,
@@ -26,6 +27,7 @@ export default function Patients() {
 
   return (
     <div>
+      <Heading size="md" mb={5} textAlign="center">Patients</Heading>
       <CreatePatient mutate={mutate} />
       <TableContainer>
         <Table>
@@ -34,7 +36,7 @@ export default function Patients() {
               <Th>First Name</Th>
               <Th>Last Name</Th>
               <Td>Precriptions</Td>
-              <Th>Delete</Th>
+              <Th>Actions</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -43,7 +45,7 @@ export default function Patients() {
                 <Td>{patient.firstName}</Td>
                 <Td>{patient.lastName}</Td>
                 <Td>
-                  <Link as={RouterLink} to={patient.id}>Prescriptions</Link>
+                  <Link as={RouterLink} to={patient.id}>View Prescriptions</Link>
                 </Td>
                 <Td><Button onClick={() => deletePatient(patient.id)}>Delete</Button></Td>
               </Tr>

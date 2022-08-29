@@ -29,15 +29,11 @@ export default function Patient() {
 
   return (
     <div>
-      <Box display="flex" justifyContent="space-between" mb={5}>
-        <Heading size="md">
-          <Link as={RouterLink} to="/patients">All Patients</Link> &gt; {patient.firstName} {patient.lastName} prescriptions
-        </Heading>
-        {/* <Link as={RouterLink} to="/patients">
-          <Heading size="md">all patients</Heading>
-        </Link> */}
-      </Box>
-      
+      <Heading size="md" mb={5} textAlign="center">
+        {patient.firstName} {patient.lastName} Prescriptions &nbsp;
+        <Link to="/patients" as={RouterLink}>(View All Patients)</Link>
+      </Heading>
+
       <CreatePrescription mutate={mutate} patientId={id} />
       <TableContainer>
         <Table>
@@ -46,7 +42,7 @@ export default function Patient() {
               <Th>Name</Th>
               <Th>Dosage</Th>
               <Td>Status</Td>
-              <Th>Delete</Th>
+              <Th>Actions</Th>
             </Tr>
           </Thead>
           <Tbody>

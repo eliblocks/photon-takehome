@@ -37,7 +37,7 @@ export default function CreatePatient({ mutate }) {
 
   return (
     <>
-      <Button onClick={onOpen}>+ Add</Button>
+      <Button onClick={onOpen}>+ Add Patient</Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -54,8 +54,8 @@ export default function CreatePatient({ mutate }) {
                 <FormLabel>Last Name</FormLabel>
                 <Input name= "lastName" />
               </FormControl>
-              <Button mt={3} colorScheme='blue' type="submit">
-                Create
+              <Button mt={3} mb={3} type="submit">
+                Submit
               </Button>
             </form>
           </ModalBody>

@@ -26,7 +26,7 @@ function App() {
       <Navbar>
         Photon
       </Navbar>
-      <Container mt={5}>
+      <Container maxW='800px' mt={5}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="patients" element={<Patients />} />

@@ -61,6 +61,11 @@ app.post('/patients', (req, res) => {
 
 app.delete('/patients/:id', (req, res) => {
     delete database.patients[req.params.id]
+    Object.entries(database.prescriptions).forEach(([key, value]) => {
+        if (value.patientId === req.params.id) {
+            delete database.prescriptions[key]
+        }
+    })
     res.json(Object.values(database.patients));
 });
 
