@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState } from "react";
+import axios from "axios";
 import {
   Modal,
   ModalOverlay,
@@ -12,27 +12,30 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Text
-} from '@chakra-ui/react'
+  Text,
+} from "@chakra-ui/react";
 
 export default function CreatePrescription({ mutate, patientId }) {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const [error, setError] = useState("")
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [error, setError] = useState("");
 
   function createPatient(e) {
-    console.log("submitting")
-    e.preventDefault()
-    let formData = new FormData(e.target)
-    axios.post(`/patients/${patientId}/prescriptions`, {
-      name: formData.get("name"),
-      dosage: formData.get("dosage")
-    }).then(() => {
-      mutate();
-      onClose();
-    }).catch(error => {
-      console.log(error.response.data)
-      setError(error.response.data)
-    })
+    console.log("submitting");
+    e.preventDefault();
+    let formData = new FormData(e.target);
+    axios
+      .post(`/patients/${patientId}/prescriptions`, {
+        name: formData.get("name"),
+        dosage: formData.get("dosage"),
+      })
+      .then(() => {
+        mutate();
+        onClose();
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+        setError(error.response.data);
+      });
   }
 
   return (
@@ -52,7 +55,7 @@ export default function CreatePrescription({ mutate, patientId }) {
               </FormControl>
               <FormControl>
                 <FormLabel>Dosage</FormLabel>
-                <Input name= "dosage" />
+                <Input name="dosage" />
               </FormControl>
               <Button mt={3} mb={3} type="submit">
                 Create
@@ -62,5 +65,5 @@ export default function CreatePrescription({ mutate, patientId }) {
         </ModalContent>
       </Modal>
     </>
-  )
+  );
 }

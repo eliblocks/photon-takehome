@@ -1,8 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 import { Link as RouterLink, useParams } from "react-router-dom";
 import {
   Heading,
-  Box,
   Table,
   Thead,
   Tbody,
@@ -12,26 +11,29 @@ import {
   TableContainer,
   Button,
   Link,
-} from '@chakra-ui/react'
+} from "@chakra-ui/react";
 
-import usePatient from '../hooks/use-patient'
-import CreatePrescription from './CreatePrescription';
+import usePatient from "../hooks/use-patient";
+import CreatePrescription from "./CreatePrescription";
 
 export default function Patient() {
   let { id } = useParams();
   let { patient, mutate } = usePatient(id);
-  if (!patient) { return null }
+  if (!patient) {
+    return null;
+  }
 
   function deletePrescription(prescriptionId) {
-    axios.delete(`/prescriptions/${prescriptionId}`)
-      .then(() => mutate());
+    axios.delete(`/prescriptions/${prescriptionId}`).then(() => mutate());
   }
 
   return (
     <div>
       <Heading size="md" mb={5} textAlign="center">
         {patient.firstName} {patient.lastName} Prescriptions &nbsp;
-        <Link to="/patients" as={RouterLink}>(View All Patients)</Link>
+        <Link to="/patients" as={RouterLink}>
+          (View All Patients)
+        </Link>
       </Heading>
 
       <CreatePrescription mutate={mutate} patientId={id} />
@@ -46,17 +48,21 @@ export default function Patient() {
             </Tr>
           </Thead>
           <Tbody>
-            {patient?.prescriptions?.map(prescription => (
+            {patient?.prescriptions?.map((prescription) => (
               <Tr key={prescription.id}>
                 <Td>{prescription.name}</Td>
                 <Td>{prescription.dosage}</Td>
                 <Td>{prescription.status}</Td>
-                <Td><Button onClick={() => deletePrescription(prescription.id)}>Delete</Button></Td>
+                <Td>
+                  <Button onClick={() => deletePrescription(prescription.id)}>
+                    Delete
+                  </Button>
+                </Td>
               </Tr>
             ))}
           </Tbody>
         </Table>
       </TableContainer>
     </div>
-  )
+  );
 }
